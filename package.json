@@ -1,0 +1,25 @@
+{
+  "name": "perfanalytics-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/perfanalytics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/index.js -o perfanalytics.js",
+    "start": "npm run build && parcel example/perfanalytics-js.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erbilnas/perfanalytics-js.git"
+  },
+  "keywords": [],
+  "author": "Erbil Nas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erbilnas/perfanalytics-js/issues"
+  },
+  "homepage": "https://github.com/erbilnas/perfanalytics-js#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
