@@ -1,16 +1,15 @@
 const api = ''
 
-var title = document.title
-var url = window.location.href
-var performance = window.performance.toJSON()
+let url = window.location.href
+let performance = window.performance.toJSON()
 
-var obj = {
-    "title": title,
+let obj = {
     "url": url,
     "metrics": performance,
 }
 
-console.log("Object : ", obj)
+console.log("Perfanalytics Date : ", Date(performance.timeOrigin))
+console.log("Perfanalytics Object : ", obj)
 
 const options = {
     method: 'POST',

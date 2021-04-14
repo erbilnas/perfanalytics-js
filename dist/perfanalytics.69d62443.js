@@ -179,24 +179,22 @@ parcelRequire = function (e, r, t, n) {
 }({
   "Focm": [function (require, module, exports) {
     var o = "",
-        e = document.title,
-        t = window.location.href,
+        e = window.location.href,
         n = window.performance.toJSON(),
-        r = {
-      title: e,
-      url: t,
+        t = {
+      url: e,
       metrics: n
     };
-    console.log("Object : ", r);
-    var c = {
+    console.log("Perfanalytics Date : ", Date(n.timeOrigin)), console.log("Perfanalytics Object : ", t);
+    var r = {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       mode: "no-cors",
-      body: JSON.stringify(r)
+      body: JSON.stringify(t)
     };
-    fetch(o, c).then(function (o) {
+    fetch(o, r).then(function (o) {
       return console.log(o);
     });
   }, {}]
@@ -229,7 +227,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58789" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62046" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
