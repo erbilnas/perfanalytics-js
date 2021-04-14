@@ -178,26 +178,51 @@ parcelRequire = function (e, r, t, n) {
   return f;
 }({
   "Focm": [function (require, module, exports) {
-    var t = "http://localhost:8000/metrics";
-    window.addEventListener("load", function () {
-      var n = window.location.href,
-          o = window.performance.toJSON(),
-          e = {
-        url: n,
-        date: o.timeOrigin,
-        metrics: o.timing
-      };
-      console.log("Perfanalytics Object : ", e);
-      var i = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(e)
-      };
-      fetch(t, i).then(function (t) {
-        return console.log(t);
+    var n,
+        t,
+        e,
+        o,
+        a = "http://localhost:8000/metrics",
+        r = window.location.href,
+        i = new Date().valueOf(),
+        f = window.performance.toJSON().timing,
+        c = function c(n) {
+      return n / 1e3;
+    },
+        d = function d() {
+      "function" == typeof PerformanceObserver && new PerformanceObserver(function (t) {
+        n = c(t.getEntriesByName("first-contentful-paint")[0].startTime);
+      }).observe({
+        type: "paint",
+        buffered: !0
       });
+    },
+        s = function s() {
+      var i = setInterval(function () {
+        var f = {
+          url: r,
+          date: Date(performance.timeOrigin).valueOf(),
+          ttfb: t,
+          fcp: n,
+          domLoad: o,
+          windowLoad: e
+        };
+        console.log("Perfanalytics Object : ", f);
+        var c = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(f)
+        };
+        fetch(a, c).then(function (n) {
+          return console.log(n);
+        }), clearInterval(i);
+      }, 500);
+    };
+
+    window.addEventListener("load", function () {
+      (window || window.performance) && (t = c(f.responseStart - f.navigationStart), o = c(f.domContentLoadedEventEnd - f.navigationStart), e = c(i - f.navigationStart), d(), s());
     });
   }, {}]
 }, {}, ["Focm"], null);
@@ -229,7 +254,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60899" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63274" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
