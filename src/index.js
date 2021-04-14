@@ -1,21 +1,24 @@
-const api = ''
+const api = 'http://localhost:8000/metrics'
 
-let url = window.location.href
-let performance = window.performance.toJSON()
+window.addEventListener('load', () => {
+    let url = window.location.href
+    let performance = window.performance.toJSON()
 
-let obj = {
-    "url": url,
-    "metrics": performance,
-}
+    let data = {
+        "url": url,
+        "date": performance.timeOrigin,
+        "metrics": performance.timing,
+    }
 
-console.log("Perfanalytics Date : ", Date(performance.timeOrigin))
-console.log("Perfanalytics Object : ", obj)
+    console.log("Perfanalytics Object : ", data)
 
-const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    mode: 'no-cors',
-    body: JSON.stringify(obj),
-}
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    }
 
-fetch(api, options).then((response) => console.log(response))
+    fetch(api, options).then((response) => console.log(response))
+})

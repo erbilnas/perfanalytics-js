@@ -178,24 +178,26 @@ parcelRequire = function (e, r, t, n) {
   return f;
 }({
   "Focm": [function (require, module, exports) {
-    var o = "",
-        e = window.location.href,
-        n = window.performance.toJSON(),
-        t = {
-      url: e,
-      metrics: n
-    };
-    console.log("Perfanalytics Date : ", Date(n.timeOrigin)), console.log("Perfanalytics Object : ", t);
-    var r = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      mode: "no-cors",
-      body: JSON.stringify(t)
-    };
-    fetch(o, r).then(function (o) {
-      return console.log(o);
+    var t = "http://localhost:8000/metrics";
+    window.addEventListener("load", function () {
+      var n = window.location.href,
+          o = window.performance.toJSON(),
+          e = {
+        url: n,
+        date: o.timeOrigin,
+        metrics: o.timing
+      };
+      console.log("Perfanalytics Object : ", e);
+      var i = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(e)
+      };
+      fetch(t, i).then(function (t) {
+        return console.log(t);
+      });
     });
   }, {}]
 }, {}, ["Focm"], null);
@@ -227,7 +229,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62046" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60899" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
