@@ -178,51 +178,62 @@ parcelRequire = function (e, r, t, n) {
   return f;
 }({
   "Focm": [function (require, module, exports) {
-    var n,
+    var e,
+        n,
         t,
-        e,
-        o,
-        a = "http://localhost:8000/metrics",
-        r = window.location.href,
+        r,
+        o = "http://localhost:8000/metrics",
+        a = window.location.href,
+        s = window.performance.toJSON().timing,
         i = new Date().valueOf(),
-        f = window.performance.toJSON().timing,
-        c = function c(n) {
-      return n / 1e3;
+        c = function c(e) {
+      return e / 1e3;
     },
-        d = function d() {
-      "function" == typeof PerformanceObserver && new PerformanceObserver(function (t) {
-        n = c(t.getEntriesByName("first-contentful-paint")[0].startTime);
+        f = function f() {
+      "function" == typeof PerformanceObserver ? new PerformanceObserver(function (n) {
+        e = c(n.getEntriesByName("first-contentful-paint")[0].startTime);
       }).observe({
         type: "paint",
         buffered: !0
-      });
+      }) : console.error("PerfanalyticsJS Error : PerformanceObserver NOT supported!");
     },
-        s = function s() {
-      var i = setInterval(function () {
-        var f = {
-          url: r,
-          date: Date(performance.timeOrigin).valueOf(),
-          ttfb: t,
-          fcp: n,
-          domLoad: o,
-          windowLoad: e
+        l = function l() {
+      var s = setInterval(function () {
+        var i = {
+          url: a,
+          date: performance.timeOrigin,
+          ttfb: n,
+          fcp: e,
+          domLoad: r,
+          windowLoad: t
         };
-        console.log("Perfanalytics Object : ", f);
+        console.log("PerfanalyticsJS Request Object : ", i);
         var c = {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(f)
+          body: JSON.stringify(i)
         };
-        fetch(a, c).then(function (n) {
-          return console.log(n);
-        }), clearInterval(i);
+        fetch(o, c).then(function (e) {
+          return console.debug(e);
+        }), clearInterval(s);
       }, 500);
+    },
+        d = function d() {
+      if (window.performance) {
+        var e = window.performance.getEntriesByType("resource");
+        console.log("PerfanalyticsJS Resource Data : "), e.forEach(function (e) {
+          console.log("Resource - Name : " + e.name + " | Type : " + e.initiatorType), console.log("-- Response time = " + c(e.responseEnd - e.responseStart)), console.log("-- Request start until response end time = " + c(e.requestStart > 0 ? e.responseEnd - e.requestStart : "0")), console.log("-- Fetch until response end time = " + c(e.fetchStart > 0 ? e.responseEnd - e.fetchStart : "0")), console.log("-- Start until response end time = " + c(e.startTime > 0 ? e.responseEnd - e.startTime : "0"));
+        });
+      } else console.error("PerfanalyticsJS Error : Performance NOT supported!");
+    },
+        p = function p() {
+      s ? (n = c(s.responseStart - s.navigationStart), r = c(s.domContentLoadedEventEnd - s.navigationStart), t = c(i - s.navigationStart)) : console.error("PerfanalyticsJS Error : Performance NOT supported!");
     };
 
     window.addEventListener("load", function () {
-      (window || window.performance) && (t = c(f.responseStart - f.navigationStart), o = c(f.domContentLoadedEventEnd - f.navigationStart), e = c(i - f.navigationStart), d(), s());
+      f(), p(), d(), l();
     });
   }, {}]
 }, {}, ["Focm"], null);
@@ -254,7 +265,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63274" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56591" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
