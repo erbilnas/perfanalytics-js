@@ -1,5 +1,5 @@
 // Variables
-const api = 'http://localhost:8000/metrics'
+const api = 'https://perfapp-api.herokuapp.com/metrics'
 const url = window.location.href
 const performanceTiming = window.performance.toJSON().timing
 const currentTime = new Date().valueOf()
