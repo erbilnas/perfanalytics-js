@@ -11,7 +11,7 @@ You can see which metrics have been collected on browser's console!
 
 ## Usage
 
-Import the minified JavaScript library into your HTML as script like below and that's all! The library will take care of the rest.
+Import the minified JavaScript library into your HTML as script like below and that's all! The library will take care of the rest. Your "index.html" is recommended if you want to access metrics on all pages.
 
 ```html
 <script src="https://apps.erbilnas.com/lib/perfanalytics.js"></script>
